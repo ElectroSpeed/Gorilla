@@ -25,7 +25,15 @@ public class Rock : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.parent != null && collision.transform.parent.gameObject.name == "Tilemap 4")
+        if (collision.transform.parent != null && collision.transform.parent.gameObject.name == "Tilemap 4")
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player")) // Assurez-vous que le joueur a un tag "Player" dans l'éditeur Unity.
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("IA")) // Assurez-vous que le joueur a un tag "IA" dans l'éditeur Unity.
         {
             Destroy(gameObject);
         }

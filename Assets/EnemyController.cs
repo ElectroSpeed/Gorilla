@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,7 @@ public class EnemyController : MonoBehaviour
     public float movementSpeed = 1.5f;
     public float JumpForce;
     public Rigidbody2D Rb;
+    public int life = 3;
 
     private float nextFireTime;
     private EnemyShoot enemyShoot;
@@ -22,6 +24,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         enemyShoot = GetComponent<EnemyShoot>();
+        GameObject.Find("Canvas").transform.Find("Text (LifeIA) (1)").GetComponent<TextMeshProUGUI>().text = ((int)life).ToString();
     }
 
     void Update()
@@ -104,11 +107,48 @@ public class EnemyController : MonoBehaviour
         Rb.velocity = new Vector2(Rb.velocity.x, JumpForce);
     }
 
+    public void TakeDamage()
+    {
+        life--;
+
+        // Vous pouvez ajouter ici d'autres actions à effectuer lorsque le joueur prend des dégâts, par exemple, vérifier s'il est mort.
+
+        if (life <= 0)
+        {
+            // Le joueur est mort, vous pouvez ajouter ici le code correspondant à la défaite du joueur.
+            Victory();
+        }
+    }
+
+    void Victory()
+    {
+        // Mettez ici le code pour la séquence de Game Over, par exemple, désactiver le joueur, afficher un écran de fin, etc.
+        Debug.Log("Victory!");
+
+        // Désactivez le script Movement pour arrêter les mouvements du joueur.
+
+        // Affichez un écran de fin ou un texte "Game Over".
+        // Assurez-vous d'avoir un objet Text ou un Canvas avec le texte "Game Over" dans votre scène.
+        GameObject.Find("Canvas").transform.Find("Text (Victory)").gameObject.SetActive(true);
+
+        // Arrêtez le temps pour que le jeu ne puisse plus être contrôlé.
+        Time.timeScale = 0f;
+        GameObject.Find("Canvas").transform.Find("Text (LifeIA) (1)").GetComponent<TextMeshProUGUI>().text = ((int)life).ToString();
+
+        // Ajoutez ici d'autres actions à effectuer lors du Game Over.
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.parent != null && collision.transform.parent.gameObject.name == "Tilemap 4")
         {
             Jump();
+        }
+        if (collision.gameObject.CompareTag("Rock1")) // Assurez-vous que les rochers ont un tag "Rock" dans l'éditeur Unity.
+        {
+            GameObject.Find("Canvas").transform.Find("Text (LifeIA) (1)").GetComponent<TextMeshProUGUI>().text = ((int)life).ToString();
+            TakeDamage();
+            Destroy(collision.gameObject);
         }
     }
 }
