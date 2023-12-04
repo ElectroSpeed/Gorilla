@@ -10,11 +10,11 @@ public class Movement : MonoBehaviour
 
     float horizontalmovement;
 
-    public int life = 3;
+    [HideInInspector]public int life = 3;
 
     public Rigidbody2D Rb;
 
-    private Vector3 velocity = Vector3.zero;
+    [SerializeField] private Vector3 velocity = Vector3.zero;
 
     public Transform EarthLeft;
     public Transform EarthRight;
@@ -47,32 +47,24 @@ public class Movement : MonoBehaviour
     {
         life--;
 
-        // Vous pouvez ajouter ici d'autres actions à effectuer lorsque le joueur prend des dégâts, par exemple, vérifier s'il est mort.
 
         if (life <= 0)
         {
-            // Le joueur est mort, vous pouvez ajouter ici le code correspondant à la défaite du joueur.
             GameOver();
         }
     }
 
     void GameOver()
     {
-        // Mettez ici le code pour la séquence de Game Over, par exemple, désactiver le joueur, afficher un écran de fin, etc.
         Debug.Log("Game Over!");
 
-        // Désactivez le script Movement pour arrêter les mouvements du joueur.
         GetComponent<Movement>().enabled = false;
 
-        // Affichez un écran de fin ou un texte "Game Over".
-        // Assurez-vous d'avoir un objet Text ou un Canvas avec le texte "Game Over" dans votre scène.
         GameObject.Find("Canvas").transform.Find("Text (GameOver)").gameObject.SetActive(true);
 
-        // Arrêtez le temps pour que le jeu ne puisse plus être contrôlé.
         Time.timeScale = 0f;
         GameObject.Find("Canvas").transform.Find("Text (Lifeplayer) (1)").GetComponent<TextMeshProUGUI>().text = ((int)life).ToString();
 
-        // Ajoutez ici d'autres actions à effectuer lors du Game Over.
     }
 
     public void MovePlayer(InputAction.CallbackContext context)
@@ -94,7 +86,7 @@ public class Movement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("rock")) // Assurez-vous que les rochers ont un tag "Rock" dans l'éditeur Unity.
+        if (collision.gameObject.CompareTag("rock"))
         {
             GameObject.Find("Canvas").transform.Find("Text (Lifeplayer) (1)").GetComponent<TextMeshProUGUI>().text = ((int)life).ToString();
             TakeDamage();

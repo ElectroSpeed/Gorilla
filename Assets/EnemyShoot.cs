@@ -33,8 +33,6 @@ public class EnemyShoot : MonoBehaviour
         float x = Mathf.Cos(angle) * firingSpeed;
         float y = Mathf.Sin(angle) * firingSpeed;
 
-        //y += 0.5f * gravity * Mathf.Pow((firingSpeed * Mathf.Sin(angle)) / gravity, 2);
-
         Vector3 projectileVelocity = new Vector3(x, y, 0);
 
         GameObject rock = Instantiate(projectilePrefab, transform.position, Quaternion.identity);

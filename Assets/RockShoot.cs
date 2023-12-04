@@ -63,9 +63,8 @@ public class RockShoot : MonoBehaviour
 
             GameObject rock = Instantiate(Rock, new Vector3(transform.position.x + x / 10, transform.position.y + y / 5 - 0.6f, 0), Quaternion.identity);
 
-            float timeOfFlight = 2 * y / gravity; // Calculating the time of flight
+            float timeOfFlight = 2 * y / gravity;
 
-            // Applying wind effect to the curve of the projectile
             rock.GetComponent<Rigidbody2D>().velocity = new Vector2(projectileVelocity.x, projectileVelocity.y) + wind * timeOfFlight;
         }
     }

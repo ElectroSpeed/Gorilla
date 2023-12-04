@@ -23,14 +23,12 @@ public class TurnManager : MonoBehaviour
 
             if (isPlayerTurn)
             {
-                // C'est le tour du joueur
                 GameObject.Find("Canvas").transform.Find("Text (Turn)").GetComponent<TextMeshProUGUI>().text = "Turn Player";
                 EnablePlayerControl();
                 EnablePlayerControl();
             }
             else
             {
-                // C'est le tour de l'IA
                 GameObject.Find("Canvas").transform.Find("Text (Turn)").GetComponent<TextMeshProUGUI>().text = "Turn IA";
                 EnableEnemyControl();
             }

@@ -62,13 +62,12 @@ public class EnemyController : MonoBehaviour
 
             nextFireTime = Time.time + 1f / fireRate;
 
-            // Activer le script de tir de l'ennemi
             if (enemyShoot != null)
             {
                 enemyShoot.enabled = true;
             }
 
-            StartCoroutine(EnablePlayerShootAfterDelay(2f)); // Activer le script après 2 secondes
+            StartCoroutine(EnablePlayerShootAfterDelay(2f));
         }
     }
 
@@ -93,7 +92,7 @@ public class EnemyController : MonoBehaviour
     {
             Vector2 direction = player.transform.position - transform.position;
             direction.Normalize();
-            transform.Translate(direction * movementSpeed * Time.deltaTime); // Utilisation de la nouvelle variable de vitesse
+            transform.Translate(direction * movementSpeed * Time.deltaTime);
     }
 
     bool IsInShootingRange()
@@ -111,31 +110,23 @@ public class EnemyController : MonoBehaviour
     {
         life--;
 
-        // Vous pouvez ajouter ici d'autres actions à effectuer lorsque le joueur prend des dégâts, par exemple, vérifier s'il est mort.
-
         if (life <= 0)
         {
-            // Le joueur est mort, vous pouvez ajouter ici le code correspondant à la défaite du joueur.
+
             Victory();
         }
     }
 
     void Victory()
     {
-        // Mettez ici le code pour la séquence de Game Over, par exemple, désactiver le joueur, afficher un écran de fin, etc.
         Debug.Log("Victory!");
 
-        // Désactivez le script Movement pour arrêter les mouvements du joueur.
-
-        // Affichez un écran de fin ou un texte "Game Over".
-        // Assurez-vous d'avoir un objet Text ou un Canvas avec le texte "Game Over" dans votre scène.
         GameObject.Find("Canvas").transform.Find("Text (Victory)").gameObject.SetActive(true);
 
-        // Arrêtez le temps pour que le jeu ne puisse plus être contrôlé.
         Time.timeScale = 0f;
         GameObject.Find("Canvas").transform.Find("Text (LifeIA) (1)").GetComponent<TextMeshProUGUI>().text = ((int)life).ToString();
 
-        // Ajoutez ici d'autres actions à effectuer lors du Game Over.
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -144,7 +135,7 @@ public class EnemyController : MonoBehaviour
         {
             Jump();
         }
-        if (collision.gameObject.CompareTag("Rock1")) // Assurez-vous que les rochers ont un tag "Rock" dans l'éditeur Unity.
+        if (collision.gameObject.CompareTag("Rock1")) 
         {
             GameObject.Find("Canvas").transform.Find("Text (LifeIA) (1)").GetComponent<TextMeshProUGUI>().text = ((int)life).ToString();
             TakeDamage();

@@ -29,11 +29,11 @@ public class Rock : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (collision.gameObject.CompareTag("Player")) // Assurez-vous que le joueur a un tag "Player" dans l'éditeur Unity.
+        if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
         }
-        if (collision.gameObject.CompareTag("IA")) // Assurez-vous que le joueur a un tag "IA" dans l'éditeur Unity.
+        if (collision.gameObject.CompareTag("IA"))
         {
             Destroy(gameObject);
         }

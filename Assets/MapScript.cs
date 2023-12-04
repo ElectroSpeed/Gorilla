@@ -71,8 +71,8 @@ public class MapScript : MonoBehaviour
 
     void SpawnObj(GameObject obj, int x, int y)
     {
-        // Ajuster la position Y ici pour déplacer la génération vers le bas
-        float yOffset = -7f; // Ajustez cette valeur selon vos besoins
+
+        float yOffset = -7f;
         Vector2 spawnPosition = new Vector2(x, y + yOffset);
 
         obj = Instantiate(obj, spawnPosition, Quaternion.identity);
